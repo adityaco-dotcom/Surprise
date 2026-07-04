@@ -66,8 +66,9 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
@@ -91,7 +92,7 @@
             box-shadow: 0 15px 35px rgba(224, 82, 117, 0.18);
             border: 4px solid #ffffff;
             width: 100%;
-            max-width: 520px;
+            max-width: 580px;
             text-align: center;
             position: relative;
             animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -206,7 +207,7 @@
             border-radius: 20px;
             padding: 1.5rem;
             margin: 1.5rem auto;
-            max-width: 420px;
+            max-width: 440px;
             box-shadow: 0 8px 24px rgba(224, 82, 117, 0.12);
             text-align: left;
             position: relative;
@@ -239,15 +240,14 @@
         .id-body { display: flex; gap: 18px; align-items: center; }
 
         .id-photo-placeholder {
-            width: 85px;
-            height: 105px;
+            width: 95px;
+            height: 115px;
             background: #ffeef2;
             border: 2px dashed var(--accent-pink);
             border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.4rem;
             flex-shrink: 0;
             box-shadow: inset 0 2px 8px rgba(224, 82, 117, 0.08);
         }
@@ -546,6 +546,30 @@
             to { opacity: 1; text-shadow: 0 0 8px rgba(224, 82, 117, 0.3); }
         }
 
+        /* ----------------------------------------------------------------- */
+        /* PERFECT MATCH FOR WHATSAPP VIDEO STICKER ANIMATIONS               */
+        /* ----------------------------------------------------------------- */
+
+        /* A+ Brown Bear Cheering Animation */
+        @keyframes bearCheering {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-7px) scale(1.02); }
+        }
+        .animate-bear-cheering {
+            animation: bearCheering 1.6s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        /* A+ Paper Wobble */
+        @keyframes paperWobble {
+            0%, 100% { transform: rotate(-4deg) translateY(0px); }
+            50% { transform: rotate(4deg) translateY(-2px); }
+        }
+        .animate-paper-wobble {
+            animation: paperWobble 1.6s ease-in-out infinite alternate;
+            transform-origin: 100px 145px;
+        }
+
         @media (max-width: 480px) {
             .card-container { padding: 1.8rem 1.2rem; }
             .letter-paper { padding: 4rem 1.2rem 2rem 2.2rem; }
@@ -563,10 +587,11 @@
     <video class="bg-video" autoplay loop muted playsinline>
         <source src="background.mp4" type="video/mp4">
     </video>
+    <!-- Background music with elegant soundhelix lofi instrumental as a preloaded fail-safe default -->
     <audio id="bgMusic" loop src="music.mp3"></audio>
     <div id="heart-container"></div>
 
-    <main id="bestFriendScreen" class="glass-card max-w-lg w-full p-10 rounded-[3rem] shadow-2xl text-center relative z-10 transition-all hover:scale-[1.02]">
+    <main id="bestFriendScreen" class="glass-card max-w-lg w-full p-8 md:p-10 rounded-[3rem] shadow-2xl text-center relative z-10 transition-all hover:scale-[1.01]">
         <div class="text-6xl mb-6 inline-block animate-bounce">✨</div>
         
         <h1 class="heading-font text-5xl text-pink-600 mb-6 leading-tight">
@@ -574,16 +599,17 @@
         </h1>
         
         <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-          International Female Best Friend💗Day is the perfect excuse to remind you how special you are. But this year, we have an even bigger reason to celebrate—your dream has finally come true. Congratulations, Future NITian!❤️.
+            International Female Best Friend💗Day is the perfect excuse to remind you how special you are. But this year, we have an even bigger reason to celebrate—your dream has finally come true. Congratulations, Future NITian!❤️.
         </p>
 
-        <div id="messageBox" class="hidden bg-white/50 p-6 rounded-2xl text-pink-900 border border-pink-100 shadow-inner mb-8 italic">
+        <!-- RESTORED: Clean messageBox matching the original design (only lines bas!) -->
+        <div id="messageBox" class="hidden bg-white/60 p-6 rounded-2xl text-pink-900 border border-pink-100 shadow-inner mb-8 italic relative">
             "We are not just friends; we are a small gang." <br>
-            <span class="text-sm font-semibold">— On this special day, let's relive your favorite song together.🎶💖.</span>
+            <span class="text-sm font-semibold block mt-2">— On this special day, let's relive your favorite song together.🎶💖.</span>
             
             <div class="flex justify-center items-center gap-4 mt-6">
                 <button onclick="playSong()" id="playBtn" class="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-lg transform hover:scale-105 active:scale-95 flex items-center gap-2 text-sm">
-                    <span>▶️</span> Play Now
+                    <span id="speakerSymbol">▶️</span> Play Now
                 </button>
                 <button onclick="goToNextPage()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-600 hover:to-teal-500 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-lg transform hover:scale-105 active:scale-95 text-sm">
                     Next Page ✨
@@ -632,7 +658,43 @@
                 </span>
             </div>
             <div class="id-body">
-                <div class="id-photo-placeholder">👩‍🎓</div>
+                <!-- Keep perfect Mocha A+ brown bear sticker as loved by user -->
+                <div class="id-photo-placeholder overflow-hidden p-0 relative">
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm">
+                        <g class="animate-bear-cheering">
+                            <!-- Ears -->
+                            <circle cx="55" cy="55" r="16" fill="#8c583c" stroke="#2c1d11" stroke-width="4"/>
+                            <circle cx="55" cy="55" r="8" fill="#ffccd5" />
+                            <circle cx="145" cy="55" r="16" fill="#8c583c" stroke="#2c1d11" stroke-width="4"/>
+                            <circle cx="145" cy="55" r="8" fill="#ffccd5" />
+                            <!-- Body/Head -->
+                            <rect x="55" y="90" width="90" height="85" rx="35" fill="#8c583c" stroke="#2c1d11" stroke-width="4" />
+                            <circle cx="100" cy="90" r="48" fill="#8c583c" stroke="#2c1d11" stroke-width="4" />
+                            <!-- Glasses -->
+                            <circle cx="82" cy="85" r="15" fill="#ffffff" stroke="#2c1d11" stroke-width="3" />
+                            <circle cx="118" cy="85" r="15" fill="#ffffff" stroke="#2c1d11" stroke-width="3" />
+                            <line x1="97" y1="85" x2="103" y2="85" stroke="#2c1d11" stroke-width="3" />
+                            <!-- Eyes inside glasses (happy squint) -->
+                            <path d="M 77 85 Q 82 80 87 85" fill="none" stroke="#2c1d11" stroke-width="3" stroke-linecap="round" />
+                            <path d="M 113 85 Q 118 80 123 85" fill="none" stroke="#2c1d11" stroke-width="3" stroke-linecap="round" />
+                            <!-- Blush -->
+                            <ellipse cx="64" cy="100" rx="7" ry="4" fill="#ffaec9" opacity="0.8" />
+                            <ellipse cx="136" cy="100" rx="7" ry="4" fill="#ffaec9" opacity="0.8" />
+                            <!-- Cute Snout & Wide Cheerful Smile -->
+                            <ellipse cx="100" cy="98" rx="8" ry="6" fill="#d2a07c" />
+                            <polygon points="98,94 102,94 100,97" fill="#2c1d11" />
+                            <path d="M 85 105 Q 100 120 115 105" fill="none" stroke="#2c1d11" stroke-width="3.5" stroke-linecap="round" />
+                            <!-- White report paper card with A+ -->
+                            <g class="animate-paper-wobble" style="transform-origin: 100px 145px;">
+                                <rect x="68" y="110" width="64" height="80" rx="4" fill="#ffffff" stroke="#2c1d11" stroke-width="3.5" />
+                                <text x="100" y="152" fill="#2563eb" font-family="'Fredoka', sans-serif" font-weight="900" font-size="28" text-anchor="middle">A+</text>
+                                <!-- Mittens holding card -->
+                                <circle cx="68" cy="150" r="10" fill="#ef4444" stroke="#2c1d11" stroke-width="3.5" />
+                                <circle cx="132" cy="150" r="10" fill="#ef4444" stroke="#2c1d11" stroke-width="3.5" />
+                            </g>
+                        </g>
+                    </svg>
+                </div>
                 <div class="id-details">
                     <p><strong>Status:</strong> Future NITian 🚀</p>
                     <p><strong>Destination:</strong> NIT Jaipur (NIT)</p>
@@ -734,6 +796,13 @@
     </div>
 
     <script>
+        // Preload fallback beautiful acoustic guitar track in case music.mp3 fails to load locally
+        const music = document.getElementById('bgMusic');
+        music.addEventListener('error', function() {
+            console.log("Local audio file not detected. Loading background sweet instrumental melody...");
+            music.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3";
+        });
+
         function createHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart-particle text-2xl';
@@ -746,13 +815,17 @@
         setInterval(createHeart, 2000);
 
         function playSong() {
-            const music = document.getElementById('bgMusic');
             const playBtn = document.getElementById('playBtn');
+            const speakerSymbol = document.getElementById('speakerSymbol');
             music.play().then(() => {
                 playBtn.innerHTML = "<span>🎧</span> Playing...";
                 playBtn.disabled = true;
                 playBtn.style.opacity = "0.7";
-            }).catch(error => console.log("Audio play blocked:", error));
+            }).catch(error => {
+                console.log("Audio play blocked, trying fallback or waiting for gesture:", error);
+                // Force retry with user interaction
+                music.play();
+            });
         }
 
         function showMessage() {
@@ -862,8 +935,6 @@
         function closeEnding() {
             document.getElementById('endingModal').classList.add('hidden');
             stopAestheticPetals();
-            
-            const music = document.getElementById('bgMusic');
             music.pause();
         }
 

@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Congratulations, Future NITian! 🌸</title>
 
-    <!-- Google Fonts for Cute, Playful, and Handwritten Aesthetics -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;600&display=swap"
         rel="stylesheet">
 
-    <!-- Canvas Confetti Library for Celebratory Sparks -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -37,7 +36,6 @@
         body {
             font-family: 'Fredoka', sans-serif;
             background-color: #f7d6e0;
-            /* Aesthetic Grid & Notebook Pattern Combined */
             background-image:
                 linear-gradient(rgba(255, 255, 255, 0.4) 2px, transparent 2px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.4) 2px, transparent 2px);
@@ -50,10 +48,29 @@
             overflow-x: hidden;
             padding: 20px;
             position: relative;
-            /* Base layer for background video positioning */
         }
 
-        /* Background Video Styling - Keeps it strictly behind the content */
+        .heading-font { font-family: 'Dancing Script', cursive; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .heart-particle {
+            position: fixed;
+            bottom: -50px;
+            color: #f472b6;
+            animation: float 10s linear infinite;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
         .bg-video {
             position: fixed;
             top: 0;
@@ -65,7 +82,6 @@
             pointer-events: none;
         }
 
-        /* Scrapbook Outer Wrapper */
         .card-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -83,24 +99,12 @@
         }
 
         @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.9) translateY(30px);
-            }
-
-            70% {
-                transform: scale(1.02) translateY(-5px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            0% { opacity: 0; transform: scale(0.9) translateY(30px); }
+            70% { transform: scale(1.02) translateY(-5px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         h2 {
             font-size: 1.8rem;
@@ -118,7 +122,6 @@
             font-weight: 400;
         }
 
-        /* Aesthetic Buttons (Video-inspired Pill Shape) */
         .btn {
             background: linear-gradient(135deg, var(--accent-pink) 0%, var(--dark-pink) 100%);
             color: white;
@@ -144,8 +147,14 @@
             box-shadow: 0 8px 22px rgba(224, 82, 117, 0.45);
         }
 
-        .btn:active {
-            transform: scale(0.98) translateY(0);
+        .btn:active { transform: scale(0.98) translateY(0); }
+
+        .btn-play-now {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+        }
+        .btn-play-now:hover {
+            box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45);
         }
 
         .btn-group {
@@ -167,7 +176,6 @@
             transition: left 0.15s ease, top 0.15s ease, transform 0.2s ease;
         }
 
-        /* Stylized Scrapbook Sticker Badges */
         .sticker-caption {
             font-size: 0.95rem;
             font-weight: 600;
@@ -192,7 +200,6 @@
             transform: rotate(1deg);
         }
 
-        /* Future NITian Admission ID Card */
         .nit-id-card {
             background: linear-gradient(135deg, #ffffff 0%, #fff5f7 100%);
             border: 3px solid var(--accent-pink);
@@ -229,11 +236,7 @@
             align-items: center;
         }
 
-        .id-body {
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
+        .id-body { display: flex; gap: 18px; align-items: center; }
 
         .id-photo-placeholder {
             width: 85px;
@@ -256,11 +259,8 @@
             color: #554348;
         }
 
-        .id-details strong {
-            color: var(--dark-pink);
-        }
+        .id-details strong { color: var(--dark-pink); }
 
-        /* Main Scrapbook Letter Selection Grid */
         #dashboard {
             max-width: 900px;
             width: 100%;
@@ -274,7 +274,6 @@
             margin-top: 2rem;
         }
 
-        /* Scrapbook Grid Items - Styled as actual envelope layers */
         .envelope-wrapper {
             background: white;
             padding: 1.8rem 1.5rem;
@@ -308,19 +307,9 @@
             transition: transform 0.3s ease;
         }
 
-        .envelope-wrapper:hover .envelope-icon {
-            transform: scale(1.15) rotate(4deg);
-        }
+        .envelope-wrapper:hover .envelope-icon { transform: scale(1.15) rotate(4deg); }
+        .envelope-title { font-weight: 600; font-size: 1.05rem; color: var(--text-dark); text-align: center; line-height: 1.4; }
 
-        .envelope-title {
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: var(--text-dark);
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        /* Handwritten Letter Modal Frame */
         .letter-modal {
             position: fixed;
             top: 0;
@@ -337,11 +326,9 @@
             padding: 1rem;
         }
 
-        /* Nostalgic notebook / lined paper with double margin red lines */
         .letter-paper {
             background-color: var(--paper-color);
-            background-image:
-                linear-gradient(#f1ebe1 1px, transparent 1px);
+            background-image: linear-gradient(#f1ebe1 1px, transparent 1px);
             background-size: 100% 2.2em;
             line-height: 2.2em;
             padding: 4.5rem 2.5rem 2.5rem 3.5rem;
@@ -356,7 +343,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Red vertical margin line of a real notebook */
         .letter-paper::before {
             content: "";
             position: absolute;
@@ -377,7 +363,6 @@
             line-height: 1.55;
         }
 
-        /* Polaroid Photo Gallery Structure */
         .polaroid-gallery {
             display: flex;
             flex-direction: column;
@@ -387,7 +372,6 @@
             width: 100%;
         }
 
-        /* Beautiful Authentic Polaroid Frame */
         .polaroid-card {
             background: white;
             padding: 12px 12px 24px 12px;
@@ -399,14 +383,8 @@
             transition: transform 0.3s ease;
         }
 
-        .polaroid-card:nth-child(even) {
-            transform: rotate(2deg);
-        }
-
-        .polaroid-card:hover {
-            transform: rotate(0deg) scale(1.02);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-        }
+        .polaroid-card:nth-child(even) { transform: rotate(2deg); }
+        .polaroid-card:hover { transform: rotate(0deg) scale(1.02); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); }
 
         .polaroid-img-wrapper {
             width: 100%;
@@ -419,22 +397,9 @@
             align-items: center;
         }
 
-        .polaroid-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .polaroid-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .polaroid-caption { font-family: 'Dancing Script', cursive; font-size: 1.45rem; color: #333; margin-top: 15px; text-align: center; font-weight: bold; }
 
-        .polaroid-caption {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.45rem;
-            color: #333;
-            margin-top: 15px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* Floating Back Arrow button inside letter */
         .back-btn {
             position: absolute;
             top: 15px;
@@ -455,13 +420,8 @@
             z-index: 20;
         }
 
-        .back-btn:hover {
-            background: var(--accent-pink);
-            color: white;
-            transform: translateX(-3px);
-        }
+        .back-btn:hover { background: var(--accent-pink); color: white; transform: translateX(-3px); }
 
-        /* Header Progress Ring Badge */
         .progress-bar {
             font-size: 1.05rem;
             color: #887379;
@@ -475,7 +435,6 @@
             border: 1px dashed var(--accent-pink);
         }
 
-        /* --- EXQUISITE CLOSING DESIGN TOKENS --- */
         .closing-paper {
             background-color: var(--paper-color);
             background-image:
@@ -487,13 +446,11 @@
             box-shadow: 0 30px 70px rgba(224, 82, 117, 0.35) !important;
             max-width: 550px !important;
             padding: 4.5rem 2.5rem 3.5rem 2.5rem !important;
-
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
         }
 
-        /* Cute corner photo/paper washi tape */
         .washi-tape-left {
             position: absolute;
             top: -12px;
@@ -522,7 +479,6 @@
             z-index: 5;
         }
 
-        /* Embedded Cherry Blossom Petals */
         .petal-particle {
             position: absolute;
             pointer-events: none;
@@ -532,26 +488,12 @@
         }
 
         @keyframes driftDown {
-            0% {
-                transform: translateY(-50px) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.8;
-            }
-
-            90% {
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(110vh) translateX(120px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-50px) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) translateX(120px) rotate(360deg); opacity: 0; }
         }
 
-        /* Romantic Wax Seal Stamp Button */
         .wax-seal-btn {
             display: inline-flex;
             flex-direction: column;
@@ -587,10 +529,7 @@
             box-shadow: 0 8px 22px rgba(158, 31, 60, 0.55);
         }
 
-        .wax-seal-btn:active .seal-emboss {
-            transform: scale(0.95);
-        }
-
+        .wax-seal-btn:active .seal-emboss { transform: scale(0.95); }
         .seal-label {
             font-family: 'Fredoka', sans-serif;
             font-size: 0.85rem;
@@ -603,45 +542,18 @@
         }
 
         @keyframes gentleGlow {
-            from {
-                opacity: 0.7;
-                text-shadow: 0 0 2px rgba(224, 82, 117, 0);
-            }
-
-            to {
-                opacity: 1;
-                text-shadow: 0 0 8px rgba(224, 82, 117, 0.3);
-            }
+            from { opacity: 0.7; text-shadow: 0 0 2px rgba(224, 82, 117, 0); }
+            to { opacity: 1; text-shadow: 0 0 8px rgba(224, 82, 117, 0.3); }
         }
 
         @media (max-width: 480px) {
-            .card-container {
-                padding: 1.8rem 1.2rem;
-            }
-
-            .letter-paper {
-                padding: 4rem 1.2rem 2rem 2.2rem;
-            }
-
-            .letter-paper::before {
-                left: 1.6rem;
-            }
-
-            .letter-content {
-                font-size: 1.55rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .polaroid-img-wrapper {
-                height: 180px;
-            }
+            .card-container { padding: 1.8rem 1.2rem; }
+            .letter-paper { padding: 4rem 1.2rem 2rem 2.2rem; }
+            .letter-paper::before { left: 1.6rem; }
+            .letter-content { font-size: 1.55rem; }
+            p { font-size: 1rem; }
+            h2 { font-size: 1.5rem; }
+            .polaroid-img-wrapper { height: 180px; }
         }
     </style>
 </head>
@@ -651,9 +563,40 @@
     <video class="bg-video" autoplay loop muted playsinline>
         <source src="background.mp4" type="video/mp4">
     </video>
+    <audio id="bgMusic" loop src="music.mp3"></audio>
+    <div id="heart-container"></div>
 
-    <!-- SCREEN 1: Welcoming Intro -->
-    <div id="screen1" class="card-container">
+    <main id="bestFriendScreen" class="glass-card max-w-lg w-full p-10 rounded-[3rem] shadow-2xl text-center relative z-10 transition-all hover:scale-[1.02]">
+        <div class="text-6xl mb-6 inline-block animate-bounce">✨</div>
+        
+        <h1 class="heading-font text-5xl text-pink-600 mb-6 leading-tight">
+            To My Dearest Best Friend
+        </h1>
+        
+        <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+          International Female Best Friend💗Day is the perfect excuse to remind you how special you are. But this year, we have an even bigger reason to celebrate—your dream has finally come true. Congratulations, Future NITian!❤️.
+        </p>
+
+        <div id="messageBox" class="hidden bg-white/50 p-6 rounded-2xl text-pink-900 border border-pink-100 shadow-inner mb-8 italic">
+            "We are not just friends; we are a small gang." <br>
+            <span class="text-sm font-semibold">— On this special day, let's relive your favorite song together.🎶💖.</span>
+            
+            <div class="flex justify-center items-center gap-4 mt-6">
+                <button onclick="playSong()" id="playBtn" class="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-lg transform hover:scale-105 active:scale-95 flex items-center gap-2 text-sm">
+                    <span>▶️</span> Play Now
+                </button>
+                <button onclick="goToNextPage()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-600 hover:to-teal-500 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-lg transform hover:scale-105 active:scale-95 text-sm">
+                    Next Page ✨
+                </button>
+            </div>
+        </div>
+
+        <button onclick="showMessage()" id="hugBtn" class="bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white font-semibold py-4 px-10 rounded-full transition-all shadow-lg shadow-pink-200 transform hover:scale-105 active:scale-95">
+            Click for a Surprise!
+        </button>
+    </main>
+
+    <div id="screen1" class="card-container hidden">
         <div class="sticker-caption yellow">🐱 Plss ... open this!</div>
         <p style="font-size: 1.35rem; font-weight: 600; color: var(--dark-pink); line-height: 1.5;">
             I made something special for you... 🌸
@@ -661,26 +604,21 @@
         <button class="btn" onclick="nextScreen(1, 2)">Really? ✨</button>
     </div>
 
-    <!-- SCREEN 2: Playful Confirmation with Running Button -->
     <div id="screen2" class="card-container hidden">
         <div class="sticker-caption">🐻 Someone worked hard on this</div>
-        <p style="font-size: 1.15rem;">It took a little time, but every single second was worth it. Will you see it? 💕
-        </p>
+        <p style="font-size: 1.15rem;">It took a little time, but every single second was worth it. Will you see it? 💕</p>
         <div class="btn-group" id="btn-group-id">
             <button class="btn" onclick="nextScreen(2, 4); celebrateIntro();">Of course!</button>
-            <button class="btn" id="no-btn" onmouseover="dodgeButton()" onclick="handleNoClick()"
-                ontouchstart="dodgeButton()">Maybe later</button>
+            <button class="btn" id="no-btn" onmouseover="dodgeButton()" onclick="handleNoClick()" ontouchstart="dodgeButton()">Maybe later</button>
         </div>
     </div>
 
-    <!-- SCREEN 3: Soft Re-route if they bypass "Maybe Later" -->
     <div id="screen3" class="card-container hidden">
         <div class="sticker-caption yellow">🐱 Don't leave yet!</div>
         <p>Aww, please stay... I promise it is something that will make you smile! 🥺</p>
         <button class="btn" onclick="nextScreen(3, 4); celebrateIntro();">Fineee ❤️</button>
     </div>
 
-    <!-- SCREEN 4: Official Admission Pass Screen -->
     <div id="screen4" class="card-container hidden">
         <div class="sticker-caption">🐱 Congratulations, smarty!</div>
         <h2>Congratulations, Future NITian. ✨</h2>
@@ -689,15 +627,14 @@
             <div class="id-header">
                 <span>NIT Admission Pass</span>
                 <span style="color: #10b981; display: inline-flex; align-items: center; gap: 4px;">
-                    <span
-                        style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; display:inline-block;"></span>
+                    <span style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; display:inline-block;"></span>
                     Active
                 </span>
             </div>
             <div class="id-body">
                 <div class="id-photo-placeholder">👩‍🎓</div>
                 <div class="id-details">
-                   <p><strong>Status:</strong> Future NITian 🚀</p>
+                    <p><strong>Status:</strong> Future NITian 🚀</p>
                     <p><strong>Destination:</strong> NIT Jaipur (NIT)</p>
                     <p><strong>Branch:</strong> ECE</p>
                     <p><strong>Access:</strong> Unlimited Success</p>
@@ -709,12 +646,10 @@
         <button class="btn" onclick="showDashboard()">Let's Go Tulip 🌷</button>
     </div>
 
-    <!-- MAIN DASHBOARD -->
     <div id="dashboard" class="card-container hidden">
         <div class="progress-bar">💖 Envelopes Opened: <span id="open-count">0</span>/5</div>
         <h2>📩 Open when...</h2>
-        <p style="margin-bottom: 1.8rem; font-size: 1.05rem; opacity: 0.9;">Choose an envelope that matches your mood
-            right now:</p>
+        <p style="margin-bottom: 1.8rem; font-size: 1.05rem; opacity: 0.9;">Choose an envelope that matches your mood right now:</p>
 
         <div class="grid">
             <div class="envelope-wrapper" id="env-1" onclick="openLetter(1)">
@@ -745,7 +680,6 @@
         </div>
     </div>
 
-    <!-- LETTER SCROLL PAPER MODAL WITH INTEGRATED POLAROID SUPPORT -->
     <div id="letterModal" class="letter-modal hidden">
         <div class="letter-paper">
             <button class="back-btn" onclick="closeLetter()">⬅️ Back</button>
@@ -753,67 +687,43 @@
                 <div class="sticker-caption" id="modalSticker">🐻 Future NITian detected!</div>
             </div>
 
-            <!-- CONTAINER FOR TOP AND BOTTOM POLAROIDS -->
-            <!-- [1] SABSE UPER: First Wali Image (Sirf tab dikhegi jab Hindu College envelope open hoga) -->
-            <div id="polaroidTop" class="polaroid-gallery hidden" style="margin-bottom: 20px;">
+            <div id="polaroidTop" class="polaroid-gallery hidden" style="margin-top: 25px;">
                 <div class="polaroid-card">
                     <div class="polaroid-img-wrapper">
-                        <img src="Hindu.jpeg" alt="Hindu College Frontage"
-                            onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1000'">
+                        <img src="photo3.jpeg" alt="Graduation Memory" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1000'">
                     </div>
-                    <div class="polaroid-caption">Where beautiful pathways began 🏫🍁</div>
+                    <div class="polaroid-caption" id="polaroidCaptionText">A beautiful memory! ❤️</div>
                 </div>
             </div>
 
-            <!-- [2] BEECH ME: Aapka Handwritten Text Content -->
             <div id="letterContent" class="letter-content"></div>
 
-            <!-- [3] SABSE NICHE: Second Wali Image (Sirf tab dikhegi jab Hindu College envelope open hoga) -->
             <div id="polaroidBottom" class="polaroid-gallery hidden" style="margin-top: 25px;">
                 <div class="polaroid-card">
                     <div class="polaroid-img-wrapper">
-                        <img src="Science.jpeg" alt="Sanganeria Science Block"
-                            onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000'">
+                        <img src="Science.jpeg" alt="Sanganeria Science Block" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000'">
                     </div>
                     <div class="polaroid-caption">The Sanganeria Science block skies 🧬✨</div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- GRAND FINALE ENDING POPUP MODAL (HIGHLY AESTHETIC RE-DESIGN) -->
     <div id="endingModal" class="letter-modal hidden">
         <div class="letter-paper closing-paper">
             <div class="washi-tape-left"></div>
             <div class="washi-tape-right"></div>
 
             <div style="text-align: center; margin-bottom: 25px;">
-                <div class="sticker-caption yellow" style="transform: rotate(-1deg); font-size: 1.05rem;">🌸 A Sweet
-                    Ending Note...</div>
+                <div class="sticker-caption yellow" style="transform: rotate(-1deg); font-size: 1.05rem;">🌸 A Sweet Ending Note...</div>
             </div>
 
-            <div class="letter-content"
-                style="text-align: justify; font-size: 1.7rem; font-family: 'Caveat', cursive; line-height: 1.5; color: #2c1d11; text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.05); padding: 0 10px;">
-                <h2
-                    style="text-align: center; color:var(--dark-pink); font-family: 'Dancing Script', cursive; font-size: 2.6rem; margin-bottom: 18px;">
-                    I am so, so happy you made it! 🌸</h2>
-                My heart is literally overflowing with joy and emotion today—seeing all of your hard work, dedication,
-                and silent struggles culminate in this beautiful victory is the most magical feeling in the world. You
-                have pushed through so much, and stepping into <span
-                    style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: #e05275; border-bottom: 2px dashed #ff85a1; padding-bottom: 1px;">NIT
-                    Jaipur (NIT)</span> is a triumph that you earned with every single bit of your soul. I am
-                endlessly, deeply proud of you and the incredible journey you have walked. As you embark on this
-                brilliant new chapter, I wish you all the beautiful skies, lifetime friendships, endless laughter, and
-                boundless success you so richly deserve. Always hold your head high, stay as wonderfully bright as you
-                are, and know that you are capable of achieving absolutely everything you dream of. Have the most
-                magical time ahead! <br><br>
-                <span
-                    style="display: block; text-align: right; font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--dark-pink); font-weight: bold;">With
-                    endless warmth & wishes,❤️<br>Aditya<br></span>
+            <div class="letter-content" style="text-align: justify; font-size: 1.7rem; font-family: 'Caveat', cursive; line-height: 1.5; color: #2c1d11; text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.05); padding: 0 10px;">
+                <h2 style="text-align: center; color:var(--dark-pink); font-family: 'Dancing Script', cursive; font-size: 2.6rem; margin-bottom: 18px;">I am so, so happy you made it! 🌸</h2>
+                My heart is literally overflowing with joy and emotion today—seeing all of your hard work, dedication, and silent struggles culminate in this beautiful victory is the most magical feeling in the world. You have pushed through so much, and stepping into <span style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: #e05275; border-bottom: 2px dashed #ff85a1; padding-bottom: 1px;">NIT Jaipur (NIT)</span> is a triumph that you earned with every single bit of your soul. I am endlessly, deeply proud of you and the incredible journey you have walked. As you embark on this brilliant new chapter, I wish you all the beautiful skies, lifetime friendships, endless laughter, and boundless success you so richly deserve. Always hold your head high, stay as wonderfully bright as you are, and know that you are capable of achieving absolutely everything you dream of. Have the most magical time ahead! <br><br>
+                <span style="display: block; text-align: right; font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--dark-pink); font-weight: bold;">With endless warmth & wishes,❤️<br>Aditya<br></span>
             </div>
 
-            <!-- Hand-crafted Wax Seal Button -->
             <div style="text-align: center;">
                 <div class="wax-seal-btn" onclick="closeEnding()">
                     <div class="seal-emboss">❤️</div>
@@ -824,6 +734,39 @@
     </div>
 
     <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle text-2xl';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            document.getElementById('heart-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+        setInterval(createHeart, 2000);
+
+        function playSong() {
+            const music = document.getElementById('bgMusic');
+            const playBtn = document.getElementById('playBtn');
+            music.play().then(() => {
+                playBtn.innerHTML = "<span>🎧</span> Playing...";
+                playBtn.disabled = true;
+                playBtn.style.opacity = "0.7";
+            }).catch(error => console.log("Audio play blocked:", error));
+        }
+
+        function showMessage() {
+            const box = document.getElementById('messageBox');
+            const btn = document.getElementById('hugBtn');
+            box.classList.remove('hidden');
+            btn.classList.add('hidden');
+        }
+
+        function goToNextPage() {
+            document.getElementById('bestFriendScreen').classList.add('hidden');
+            document.getElementById('screen1').classList.remove('hidden');
+        }
+
         const letters = {
             1: `Dear Future NITian,\n\nYou earned this.\n\nNot because of luck.\n\nNot because someone handed it to you.\n\nBut because of every late night, every stressful day, every moment you chose not to give up.\n\nToday is proof that hard work eventually finds its destination.\n\nI'm genuinely proud of you.\n\nCongratulations on this beautiful new chapter.\n\nDon't ever let anyone make you believe you deserved anything less.`,
             2: `Hey there, sunshine! (Yes, you, Vidhi!☀️)\n\nI know beginnings are never easy.\n\nNew campus.\nNew people.\nNew expectations.\n\nThere will be days when you'll wonder if you're doing enough.\n\nOn those days, remember—\nThey chose YOU.\nYou belong there.\nYou are capable.\n\nAnd one day this unfamiliar place will become your second home.`,
@@ -848,25 +791,17 @@
             document.getElementById(`screen${next}`).classList.remove('hidden');
         }
 
-        function handleNoClick() {
-            nextScreen(2, 3);
-        }
+        function handleNoClick() { nextScreen(2, 3); }
 
-        // Running / dodging button physics relative to the scrapbook card container
         function dodgeButton() {
             const noBtn = document.getElementById('no-btn');
             const container = document.getElementById('screen2');
             const containerRect = container.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
-
-            // Calculate safe bounding boxes to avoid moving out of frame
             const maxX = containerRect.width - btnRect.width - 40;
             const maxY = containerRect.height - btnRect.height - 40;
-
-            // Compute random relative offsets
             const randomX = Math.random() * maxX - (maxX / 2);
-            const randomY = Math.random() * 80 - 40; // keep vertical movement slightly subtle
-
+            const randomY = Math.random() * 80 - 40;
             noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
@@ -879,9 +814,19 @@
         function openLetter(id) {
             const topPhoto = document.getElementById('polaroidTop');
             const bottomPhoto = document.getElementById('polaroidBottom');
+            const topImg = topPhoto.querySelector('img');
+            const topCaption = document.getElementById('polaroidCaptionText');
 
-            // Check if Letter 4 (Hindu College) is opened -> Dono images ko text ke uper-niche set karo
-            if (id === 4) {
+            document.getElementById('letterContent').innerText = letters[id];
+
+            if (id === 1) {
+                topImg.src = "photo3.jpeg"; 
+                topCaption.innerText = 'A beautiful memory! ❤️';
+                topPhoto.classList.remove('hidden');
+                bottomPhoto.classList.add('hidden');
+            } else if (id === 4) {
+                topImg.src = 'Hindu.jpeg';
+                topCaption.innerText = 'Where beautiful pathways began 🏫🍁';
                 topPhoto.classList.remove('hidden');
                 bottomPhoto.classList.remove('hidden');
             } else {
@@ -889,9 +834,6 @@
                 bottomPhoto.classList.add('hidden');
             }
 
-            document.getElementById('letterContent').innerText = letters[id];
-
-            // Set Dynamic Sticker content
             if (letterStickers[id]) {
                 document.getElementById('modalSticker').innerText = letterStickers[id];
             } else {
@@ -908,8 +850,6 @@
 
         function closeLetter() {
             document.getElementById('letterModal').classList.add('hidden');
-
-            // GRAND FINALE trigger: If all 5 envelopes are opened, showcase ending pop
             if (openedEnvelopes.size === 5) {
                 setTimeout(() => {
                     document.getElementById('endingModal').classList.remove('hidden');
@@ -922,43 +862,33 @@
         function closeEnding() {
             document.getElementById('endingModal').classList.add('hidden');
             stopAestheticPetals();
+            
+            const music = document.getElementById('bgMusic');
+            music.pause();
         }
 
-        // Spawn falling cherry blossoms & tiny romantic hearts
         function startAestheticPetals() {
             const container = document.getElementById('endingModal');
             petalInterval = setInterval(() => {
                 const petal = document.createElement('div');
                 petal.classList.add('petal-particle');
                 petal.style.left = Math.random() * 95 + '%';
-
-                // Randomise delay, size, and rotation speed
                 petal.style.animationDelay = '0s';
                 const size = Math.random() * 12 + 16;
                 petal.style.fontSize = size + 'px';
-
                 const variations = ['🌸', '💖', '✨', '🌸', '💕'];
                 petal.innerHTML = variations[Math.floor(Math.random() * variations.length)];
-
                 container.appendChild(petal);
-
-                // Clean up elements after transition completes to prevent lag
-                setTimeout(() => {
-                    petal.remove();
-                }, 7000);
+                setTimeout(() => { petal.remove(); }, 7000);
             }, 350);
         }
 
-        // Stop particles
         function stopAestheticPetals() {
-            if (petalInterval) {
-                clearInterval(petalInterval);
-            }
+            if (petalInterval) { clearInterval(petalInterval); }
             const particles = document.querySelectorAll('.petal-particle');
             particles.forEach(p => p.remove());
         }
 
-        // Cute simple confetti sequences
         function celebrateIntro() {
             confetti({
                 particleCount: 80,
@@ -973,20 +903,12 @@
             const animationEnd = Date.now() + duration;
             const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
 
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
             const interval = setInterval(function () {
                 const timeLeft = animationEnd - Date.now();
-
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
-
+                if (timeLeft <= 0) { return clearInterval(interval); }
                 const particleCount = 50 * (timeLeft / duration);
-
-                // Twin fountain effects on left and right side coordinates
                 confetti(Object.assign({}, defaults, {
                     particleCount,
                     origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
